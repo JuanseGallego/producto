@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
+@SecurityRequirement(name = "token")
 public class PostController {
 
     @Autowired

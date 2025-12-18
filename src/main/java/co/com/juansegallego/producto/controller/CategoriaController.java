@@ -4,6 +4,7 @@ import co.com.juansegallego.producto.model.CategoriaDto;
 import co.com.juansegallego.producto.model.entity.CategoriaEntity;
 import co.com.juansegallego.producto.service.ICategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/categorias")
 @Tag(name = "Categorias", description = "API para gestión de categorias")
+@SecurityRequirement(name = "token")
 public class CategoriaController {
 
     @Autowired
