@@ -4,6 +4,7 @@ import co.com.juansegallego.producto.model.ProductoDto;
 import co.com.juansegallego.producto.model.entity.ProductoEntity;
 import co.com.juansegallego.producto.service.ProductoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/productos")
 @Tag(name = "Productos", description = "API para gestión de productos")
+@SecurityRequirement(name = "token")
 public class ProductoController {
 
     @Autowired
