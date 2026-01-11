@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +18,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
         http
+                // Deshabilitar CSRF para APIs REST stateless
+                .csrf(AbstractHttpConfigurer::disable)
+
                 //Configurar autorización de peticiones
                 .authorizeHttpRequests( auth -> auth
                         //Permitir todas las peticiones OPTIONS (preflight CORS)
@@ -35,12 +39,13 @@ public class SecurityConfig {
                         .requestMatchers("/actuator/**").permitAll()
 
                         //Todas las demas rutas requieren autenticación
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
 
                 //Configurar OAuth2 Resource Servere con JWT
                 .oauth2ResourceServer(oauth2 -> oauth2
-                        .jwt(jwt -> {
-                        }))
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                        ))
 
                 //Sin estado (stateless) para APIs REST
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

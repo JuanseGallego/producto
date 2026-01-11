@@ -8,14 +8,14 @@ spring:
     name: producto-api
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/curso_spring_boot
+    url: jdbc:postgresql://producto-db.c8hs4680cqfe.us-east-1.rds.amazonaws.com:5432/postgres
     username: postgres
-    password: admin
+    password: postgres
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
